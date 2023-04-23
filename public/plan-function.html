@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="assets/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>    
+    <link rel="stylesheet" href="assets/bootstrap.min.css">
+    <title>Document</title>
+
+    <script>
+        var module = angular.module("plan-function", []);
+        module.controller("fctrl", function ($scope, $http) {
+            $scope.jsonArray = [];
+            $scope.SetService=[];
+           
+            $scope.doFetchAll = function () {
+                //alert("u bad bad");
+                var scity=$("#city").val();
+                var service=$("#service").val();
+                //console.log(scity,service);
+                alert(scity);
+                alert(service);
+                $http.get("/fetch-all?scity="+scity+"&service="+service).then(fxOk, fxNotOk);
+                function fxOk(response) {
+                    //alert(JSON.stringify(response.data));
+                    $scope.jsonArray = response.data;
+                }
+                function fxNotOk(response) {
+                    alert(response.data);
+                }
+            }
+
+            $scope.doFetchAllCities = function () {
+                $http.get("/fetch-service").then(fxOk, fxNotOk);
+                function fxOk(response)
+                 {
+                    //alert(JSON.stringify(response.data));
+                    $scope.jsonArrayCities = response.data;
+                    var all="";
+                    for(i=0;i<$scope.jsonArrayCities.length;i++)
+                    {
+                        all=all+$scope.jsonArrayCities[i].selservices+",";
+                    }
+                    //console.log(all);
+                    all=all.substr(0,all.length-1);
+                    var ary=all.split(",");
+                    console.log(ary);
+                    var setCity=new Set(ary);
+                    //console.log(setCity);
+                   
+                    $scope.setCities=Array.from(setCity);//converted to array
+                    console.log($scope.setCities)
+                }
+                function fxNotOk(response){
+                   alert(JSON.stringify(response.data));
+                }
+            }
+
+
+            $scope.doFetchAllCity = function () {
+                $http.get("/fetch-city").then(fxOk, fxNotOk);
+                function fxOk(response) {
+                    //alert(JSON.stringify(response.data));
+                    $scope.jsonArrayCity = response.data;
+                }
+                function fxNotOk(response) {
+                    alert(response.data);
+                }
+            }
+
+        })
+    </script>
+</head>
+
+<body class="plan" ng-app="plan-function" ng-controller="fctrl" ng-init="doFetchAllCity();doFetchAllCities();">
+
+    <form action="">
+        <label for="">Select City</label>
+        <select class="form-select" id="city" name="city">
+            <option selected>Choose...</option>
+            <option ng-repeat="obj in jsonArrayCity" value="{{obj.city}}">{{obj.city}}</option>
+        </select>
+
+        <label for="">Select Service</label>
+        <select class="form-select" name="service" id="service">
+            <option selected>Choose...</option>
+            <option ng-repeat="obj in setCities" value="{{obj}}">{{obj}}</option>
+
+        </select>
+
+        <input type="button" value="Find Vendors" ng-click="doFetchAll();">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3" ng-repeat="obj in jsonArray">
+                    <div class="card">
+                        <img src="uploads/{{obj.proofpath}}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{obj.name}}</h5>
+                            <p>Mobile: {{obj.contact}}</p>
+                            <p>City: {{obj.city}}</p>
+                            <p>State: {{obj.address}}</p>
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#detailsModal"
+                                class="btn btn-primary" ng-click="showFullDetails($index);">Details</a>
+                            <div class="modal" tabindex="-1">
+    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+</body>
+
+</html>

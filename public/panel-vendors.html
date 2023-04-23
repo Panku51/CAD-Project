@@ -1,0 +1,77 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="assets/angular.min.js"></script>
+    <script src="assets/jquery-1.8.2.min.js"></script>
+    <script src="assets/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="assets/bootstrap.min.css">
+    <title>Document</title>
+
+    <script>
+        var module = angular.module("vendor", []);
+        module.controller("vctrl", function ($scope, $http) {
+
+            $scope.jsonAry = [];
+
+            $scope.dofetchall = function () {
+                //alert("hello");
+                $http.get("/vendor-fetch").then(ok, notok)
+                function ok(response) {
+                    //alert(JSON.stringify(response.data));
+                    $scope.jsonAry = response.data;
+                }
+                function notok(response) {
+                    alert(response.data);
+                }
+            }
+            $scope.dodelete = function (anyemail) {
+
+                    if (confirm("R u Sure?") == false)
+                        return;
+
+                    $http.get("/vendor-del?email=" + anyemail).then(fxOkKuch, fxNotOkKuch);
+
+                    function fxOkKuch(response) {
+                        alert(response.data);
+                        $scope.dofetchall();
+
+                    }
+
+                    function fxNotOkKuch(response) {
+                        alert(response.data);
+                    }
+                }
+            })
+    </script>
+</head>
+
+<body ng-app="vendor" ng-controller="vctrl">
+    <br>
+    <center>
+        <div class="col-md-6">
+            <input type="button" value="fetch" ng-click="dofetchall()">
+            <table class=" table table-primary table-bordered table-striped table-hover">
+                <tr>
+                    <th>sr no.</th>
+                    <th>email</th>
+                    <th>contact</th>
+                    <th>firm</th>
+                    <th>city</th>
+                </tr>
+                <tr ng-repeat="obj in jsonAry">
+                    <td>{{$index}}</td>
+                    <td>{{obj.email}}</td>
+                    <td>{{obj.contact}}</td>
+                    <td>{{obj.firm}}</td>
+                    <td>{{obj.city}}</td>
+                    <td><input type="button" value="delete" ng-click="dodelete(obj.email)"></td>
+                </tr>
+            </table>
+        </div>
+    </center>
+</body>
+
+</html>

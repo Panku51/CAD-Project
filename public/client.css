@@ -1,0 +1,10 @@
+#grp{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+#prev{
+    width: 10rem;
+    height: 10rem;
+}

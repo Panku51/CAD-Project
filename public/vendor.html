@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="assets/bootstrap.min.css">
+    <script src="assets/jquery-1.8.2.min.js"></script>
+    <script src="assets/bootstrap.min.js"></script>
+    <title>Vendor Profile</title>
+
+    <script>
+        function doselect(ref) {
+            //alert("tada");
+            var service = document.querySelector("#selsvr");
+            var selservice = document.querySelector("#sel1svr");
+
+            var opt = document.createElement("option");
+
+            var val = ref.selectedIndex;
+            if (selservice.value.length == 0)
+                selservice.value = selservice.value + ref[val].text;
+            else
+                selservice.value = selservice.value + "," + ref[val].text;
+            selservice.value = selservice.value.substr(0, selservice.value.length);
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $(document).ready(function(){
+            $("#email").val(localStorage.getItem("user"));
+        })
+            $(email).blur(function () {
+                var eml = $("#email").val();
+                var url = "/search-in-table?id=" + eml;
+                $.get(url, function (JSONAry) {
+                    //alert(JSON.stringify(JSONAry));
+                    if (JSONAry.length == 0)
+                        $("#result").html("Available");
+                    else
+                        $("#result").html("Not Available");
+                })
+            })
+            $("#search").click(function () {
+                var eml = $("#email").val();
+
+                var url = "/search-in-table?id=" + eml;
+
+                $.get(url, function (JSONAry) {
+                    if (JSONAry.length == 0)
+                        $("#result").html("Invalid Id");
+                    else
+                        $("#user").val(JSONAry[0].name);
+                    $("#mobile").val(JSONAry[0].contact);
+                    $("#fname").val(JSONAry[0].firm);
+                    $("#estd").val(JSONAry[0].estd);
+                    $("#fadr").val(JSONAry[0].address);
+                    $("#city").val(JSONAry[0].city);
+                    $("#acno").val(JSONAry[0].acard);
+                    $("#info").val(JSONAry[0].otherinfo);
+
+                })
+            })
+
+        })
+    </script>
+</head>
+
+<body><br><br><br><br>
+    <div class="container">
+        <form method="POST" enctype="multipart/form-data">
+            <div class="col-md-11">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Email</span>
+                    <input type="email" name="email" id="email" class="form-control" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-default">
+                    <input type="button" class="btn btn-outline-secondary" id="search" value="Search">
+                    <span id="result"></span>
+                </div>
+            </div>
+            <div class=" d-flex col-md-11">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
+                    <input type="text" id="user" name="user" class="form-control" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-default">
+                </div>&nbsp;
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Contact</span>
+                    <input type="numerical" name="mobile" id="mobile" class="form-control"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                </div>
+            </div>
+            <div class=" d-flex col-md-11">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Firm Name</span>
+                    <input type="text" name="fname" id="fname" class="form-control" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-default">
+                </div>&nbsp;
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Establised</span>
+                    <input type="text" name="estd" id="estd" class="form-control" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-default">
+                </div>
+            </div>
+            <div class=" d-flex col-md-11">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Firm Address</span>
+                    <input type="text" name="fadr" id="fadr" class="form-control" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-default">
+                </div>&nbsp;
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">City</span>
+                    <input type="text" name="city" id="city" class="form-control" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-default">
+                </div>
+            </div>
+            <div class=" d-flex col-md-11">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Adhaar Card no.</span>
+                    <input type="text" name="acno" id="acno" class="form-control" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-default">
+                </div>&nbsp;
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Upload Your Proof Here</span>
+                    <input type="file" name="prf" id="prf" class="form-control" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-default">
+                </div>
+            </div>
+            <div>
+                <div class=" d-flex">
+                    <div class="col-md-3">
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="inputGroupSelect01">Services</label>
+                            <select class="form-select" id="selsvr" name="svr" onchange="doselect(this)" multiple
+                                aria-label="multiple select example">
+                                <option disabled selected>Choose...</option>
+                                <option value="1">Photographer</option>
+                                <option value="2">Makeup Artists</option>
+                                <option value="3">Decorators</option>
+                                <option value="1">Venues</option>
+                                <option value="2">Bar Services</option>
+                                <option value="3">Mehndi Artists</option>
+                                <option value="">Choreographers</option>
+                            </select>
+                        </div>
+                    </div>&nbsp;
+                    <div class="col-md-8">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Selected Services</span>
+                            <input type="text" name="selsvr" id="sel1svr" class="form-control"
+                                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="col-md-11">
+            <div class="input-group mb-10">
+                <span class="input-group-text" id="inputGroup-sizing-default">Other Info</span>
+                <input type="text" name="info" id="info" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default">
+            </div>
+        </div><br>
+        <button type="submit" class="btn btn-secondary" formaction="vendor-s">Submit</button>
+        <button type="submit" class="btn btn-secondary">Update</button>
+        </form>
+    </div>
+</body>
+
+</html>

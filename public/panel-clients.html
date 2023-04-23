@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="assets/angular.min.js"></script>
+    <script src="assets/jquery-1.8.2.min.js"></script>
+    <script src="assets/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="assets/bootstrap.min.css">
+
+    <title>Client's Panel</title>
+
+    <script>
+        var module = angular.module("client", []);
+        module.controller("cctrl", function ($scope, $http) {
+            $scope.jsonAry = [];
+
+            $scope.DoFetch = function () {
+                //alert("helyuu🐥");
+                $http.get("/client-fetch").then(yes, no)
+                function yes(response) {
+                    //alert(response.data);
+                    //alert(JSON.stringify(response.data));
+                    $scope.jsonAry = response.data;
+                }
+                function no(response) {
+                    alert(response.data);
+                }
+
+            }
+
+            $scope.DoDel=function(anyemail){
+                //alert("iykyk🧟‍♀️");
+                if (confirm("R u Sure?") == false)
+                        return;
+                $http.get("/client-del?email="+anyemail).then(yes, no)
+                function yes(response){
+                    alert(response.data);
+                    $scope.DoFetch();
+                }
+                function no(response){
+                    alert(response.data);
+                }
+
+            }
+        })
+
+    </script>
+</head>
+
+<body ng-app="client" ng-controller="cctrl">
+    <table>
+        <input type="button" value="Fetch" ng-click="DoFetch()">
+        <tr>
+            <th>Sr.no</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>city</th>
+        </tr>
+        <tr ng-repeat="obj in jsonAry">
+            <td>{{index}}</td>
+            <td>{{obj.name}}</td>
+            <td>{{obj.email}}</td>
+            <td>{{obj.mobile}}</td>
+            <td>{{obj.city}}</td>
+            <td>
+                <input type="button" value="Delete" ng-click="DoDel()">
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+
+.signup{
+    display: none;
+    border: black 1px solid;
+    background-color: black;
+    padding: 20px;
+    color: white;
+    position: absolute;
+    top: 150px;
+    left: 250px;
+    width: 600px;
+    height: 500px;
+}
+.signin{
+    display: none;
+    border: black 1px solid;
+    background-color: black;
+    padding: 20px;
+    color: white;
+    position: absolute;
+    top: 100px;
+    left: 250px;
+    width: 600px;
+    height: 400px;
+}
+.outer-div{
+    height: 500px;
+    background: url(assets/juan-pablo-rodriguez-5ATCbgmN52g-unsplash.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.button{
+    color: blueviolet;
+}
+span::before{
+    color: rgb(51, 51, 99);
+    content: '';
+    animation: animate infinite 5s;
+}
+@keyframes animate{
+    0%{
+        content: 'Birthday';
+    }
+    25%{
+        content: 'Weddings';
+    }
+    50%{
+        content: 'Festival';
+    }
+    75%{
+        content: 'Events';
+    }
+    100%{
+        content: 'Birthday';
+    }
+}
+.sicon
+{
+    width: 50px;
+    height: 50px;
+    margin-left: 20px;
+}
+.card{
+    border: 0px!important;
+    padding: 10px;
+}
+.card:hover{
+    background-color: blueviolet;
+    color: white;
+    transform:translate(10);
+    transition:step-start 10s;
+}
+.provide{
+    color: blueviolet;
+    font-size: larger;
+    font-weight: bold;
+}
+.pickup{
+    font-size: xx-large;
+    font-weight: bold;
+}
+.Ctext{
+color:white;
+margin: 100px;
+font-size: 60px;
+}

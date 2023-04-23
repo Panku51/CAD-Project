@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/bootstrap.min.css">
+    <title>Dash Vendor</title>
+    <script>
+      function doprofile(){
+        location.href="vendor.html"
+      }
+      function dologout(){
+        localStorage.removeItem("user");
+        location.href="index.html"
+      }
+      function doopen(){
+        
+      }
+    </script>
+</head>
+<body>
+    <br><br><br>
+    
+    <div class="container d-flex justify-content-evenly">
+    <div class="card" style="width: 18rem;">
+        <img src="assets/icons8-edit-account-50.png" class="card-img-top" alt="...">
+        <div class="card-body">
+            <center>
+          <a href="#" class="btn btn-primary" onclick="doprofile()">Profile</a>
+        </center>
+        </div>
+      </div>
+      <div class="card" style="width: 18rem;">
+        <img src="assets/icons8-settings-50.png" class="card-img-top" alt="...">
+        <div class="card-body">
+            <center>
+          <a href="#" class="btn btn-primary" onclick="doopen()">Settings</a>
+        </center>
+        </div>
+      </div>
+      <div class="card" style="width: 18rem;">
+        <img src="assets/icons8-logout-50.png" class="card-img-top" alt="...">
+        <div class="card-body">
+            <center>
+          <a href="#" class="btn btn-primary" onclick="dologout()">Log Out</a>
+        </center>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="assets/bootstrap.min.css">
+  <script src="assets/jquery-1.8.2.min.js"></script>
+  <script src="assets/bootstrap.min.js"></script>
+
+  <!-- <script>
+
+    $(document).ready(function () {
+
+      //$("#up").click(function () {
+      //  $(".signup").show(1000);
+      // })
+
+      $("#cross").click(function () {
+        $(".signup").hide(1000)
+      })
+
+      // $("#in").click(function () {
+      //   $(".signin").show(1000);
+      // })
+      
+  </script> -->
+
+  <script>
+    $(document).ready(function () {
+
+      $("#signup").click(function () {
+        $(location).prop("href", "http://localhost:5151")
+        //window.location.href("/index.html");
+      })
+      $("#login").click(function () {
+        var eml = $("#email").val();
+        var pwd = $("#password").val();
+        var url = "/check-in-table?id=" + eml;
+        $.get(url, function (JSONAry) {
+          //alert(JSON.stringify(JSONAry));
+          if (JSONAry.length == 0)
+
+            alert("Sign up First!");
+          //$("#result").html("Sign Up first");
+
+          else if (pwd == JSONAry[0].pwd) {
+            document.signin.submit();
+            localStorage.setItem("user", eml);
+            if (JSONAry[0].type == "client")
+              window.location.href = "/dash-client.html";
+            else
+              window.location.href = "/dash-vendor.html";
+          }
+          else
+            alert("incorrect password :( ");
+          // $("#result").html("");
+        })
+      })
+    })
+  </script>
+
+  <title>Document</title>
+
+</head>
+
+<body>
+  <div class="outer-div">
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="assets/Screenshot 2021-08-10 at 10.48.16 AM.png" alt="" width="50" height="44"
+            class="rounded-circle d-inline-block align-text-center">
+        </a>
+        <div>
+          <h2 style="color:white">Fete ñ Fiesta</h2>
+        </div>
+        <div>
+          Contact Us
+        </div>
+        <div>
+          Our Services
+        </div>
+        <div>
+          <button type="button" id="up" class="btn" data-bs-toggle="modal"
+            data-bs-target="#exampleModal">Signup</button>
+          <button type="button" id="in" class="btn btn-outline-info" data-bs-toggle="modal"
+            data-bs-target="#exampleModal1">Login</button>
+        </div>
+
+      </div>
+      <hr>
+      <h3 class="Ctext">
+        Let's Celebrate Your <br>
+        <span></span> Party With Us
+      </h3>
+    </nav>
+  </div>
+
+  <div class="container">
+    <br><br><br><center>
+      <div class="row">
+        <div class="col">
+          <div class="provide">Our Services</div>
+          <div class="pickup">We Provide The Best Service For Your Event</div>
+        </div>
+      </div>
+    </center><br><br><br>
+    <div>
+      <div class="row d-flex justify-content-evenly">
+        <div class="col d-flex justify-content-evenly">
+          <div class="card" style="width: 18rem;">
+            <img src="assets/007-confetti.png" class="sicon" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Venue Selection</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+              <a href="#" class="button">Read more</a>
+            </div>
+          </div>
+        </div>
+        <div class="col d-flex justify-content-evenly">
+          <div class="card" style="width: 18rem;">
+            <img src="assets/012-photo-camera.png" class="sicon" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Documentation </h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+              <a href="#" class="button">Read more</a>
+            </div>
+          </div>
+        </div>
+        <div class="col d-flex justify-content-evenly">
+          <div class="card" style="width: 18rem;">
+            <img src="assets/031-invitation.png" class="sicon" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Invitation Cards</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+              <a href="#" class="button">Read more</a>
+            </div>
+          </div>
+        </div>
+      </div><br><br><br>
+      <div class="row">
+        <div class="col d-flex justify-content-evenly">
+          <div class="card" style="width: 18rem;">
+            <img src="assets/028-guitar.png" class="sicon" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Entertaiment</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+              <a href="#" class="button">Read more</a>
+            </div>
+          </div>
+        </div>
+        <div class="col d-flex justify-content-evenly">
+          <div class="card" style="width: 18rem;">
+            <img src="assets/046-garlands.png" class="sicon" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Decoration</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+              <a href="#" class="button">Read more</a>
+            </div>
+          </div>
+        </div>
+        <div class="col d-flex justify-content-evenly">
+          <div class="card" style="width: 18rem;">
+            <img src="assets/026-magician.png" class="sicon" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Juggler</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+              <a href="#" class="button">Read more</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- SIGN UP MODAL  -->
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Signup</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Email address</label>
+              <input type="email" name="email" class="form-control" id="exampleInputEmail1"
+                aria-describedby="emailHelp">
+              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Password</label>
+              <input type="password" name="pwd" class="form-control" id="exampleInputPassword1">
+            </div>
+            <div class="mb-3">
+              <label class="group-text" for="GroupSelect02">Type</label>
+              <select class="form-select" name="type" id="inputGroupSelect02">
+                <option selected>Choose...</option>
+                <option value="client">Client</option>
+                <option value="vendor">Vendor</option>
+              </select>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">Close</button>
+          <button type="submit" id="signup" class="btn btn-info" formaction="signup">Submit</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Login Modal -->
+  <form method="POST" name="signin" enctype="multipart/form-data">
+  <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">Close</button>
+          <button type="button" id="login" formaction="/check-in-table" class="btn btn-info">Login</button>
+          <label id="result"></label>
+        </div>
+      </div>
+    </div>
+  </div>
+  </form>
+
+</body>
+
+</html>
